@@ -57,10 +57,7 @@ function promptProduct(inventory) {
             }
         }
     ).then(function(answers) {
-        if (answers.item_id.toLowerCase() === 'q') {
-            console.log('thank you, come again!!!');
-            process.exit(0);
-        } 
+        quit(answers.item_id);
         if (answers.item_id) {
             var userProduct;
             inventory.forEach(function(product) {
@@ -94,10 +91,7 @@ function promptQuantity(product) {
             }
         }
     ).then(function(answers) {
-        if (answers.userQuantity.toLowerCase() === 'q') {
-            console.log('thank you, come again!!!');
-            process.exit(0);
-        } 
+        quit(answers.userQuantity);
         var userQuantity = parseInt(answers.userQuantity);
         if (userQuantity <= product.stock_quantity) {
             //update the product in the database
@@ -114,11 +108,19 @@ function updateQuantity(quantity, product) {
     var newQuantity = product.stock_quantity - quantity;
     connection.query('UPDATE products SET stock_quantity = ? WHERE item_id = ?', [newQuantity, product.item_id], function (error, results, fields) {
         if (error) throw error;
-        console.log(`You purchased ${quantity} ${product.product_name}s, their are ${newQuantity} left.`);
-        displayProducts();
+        if (quantity > 1) {
+            console.log(`You purchased ${quantity} ${product.product_name}s, their are ${newQuantity} left.`);
+            displayProducts();
+        } else {
+            console.log(`You purchased ${quantity} ${product.product_name}, their are ${newQuantity} left.`);
+            displayProducts();
+        }
+        
     });
 };
 
-function quit() {
-
+function quit(answers) {
+    if (answers.toLowerCase() === 'q') {
+        process.exit(0);
+    } 
 };

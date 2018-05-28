@@ -70,16 +70,13 @@ function promptProduct(inventory) {
             }
         }
     ).then(function(answers) {
-        if (answers.item_id.toLowerCase() === 'q') {
-            process.exit(0);
-        } 
+        quit(answers.item_id);
         if (answers.item_id) {
             var userProduct;
             inventory.forEach(function(product) {
                 if (product.item_id === parseInt(answers.item_id)) {
                     userProduct = product;
                 }
-                
             });
             if (userProduct) {
                 //prompt user for quantity
@@ -106,18 +103,16 @@ function promptQuantity(product) {
             }
         }
     ).then(function(answers) {
-        if (answers.userQuantity.toLowerCase() === 'q') {
-            process.exit(0);
-        } 
-        var userQuantity = parseInt(answers.userQuantity);
-        var productID = product;           
+        quit(answers.userQuantity);
+        var userQuantity = parseInt(answers.userQuantity);         
         
-        updateInventory(userQuantity, productID);
+        updateInventory(userQuantity, product);
     });
 };
 
-function updateInventory(quantity, id) {
-    connection.query('UPDATE products SET stock_quantity = stock_quantity + ? WHERE item_id = ?', [quantity, id], function (error, results, fields) {
+function updateInventory(quantity, product) {
+    var newQuantity = product.stock_quantity + quantity;
+    connection.query('UPDATE products SET stock_quantity = ? WHERE item_id = ?', [newQuantity, product.item_id], function (error, results, fields) {
         if (error) throw error;
         console.log(`You added ${quantity} to ${results.product_name}`);
         displayProducts();
@@ -133,7 +128,7 @@ function addProduct() {
         },
         {
             name: 'departmentName',
-            message: 'what is department will it be in?: ',
+            message: 'what department will it be in?: ',
             type: 'input'
         },
         {
@@ -183,7 +178,7 @@ function promptCommand(inventory) {
             name: 'command',
             message: 'What would you like to do?',
             type: 'list',
-            choices: [VIEW_PRODUCTS, LOW_INVENTORY, ADD_INVENTORY, ADD_PRODUCT]
+            choices: [VIEW_PRODUCTS, LOW_INVENTORY, ADD_INVENTORY, ADD_PRODUCT, 'quit']
         }
     ).then(function(answers) {
         switch (answers.command) {
@@ -202,10 +197,16 @@ function promptCommand(inventory) {
             case ADD_PRODUCT:
             addProduct();
             break;
+
+            case 'quit':
+            process.exit(0);
+            break;
         }
     });
 }
 
-function quit() {
-
+function quit(answers) {
+    if (answers.toLowerCase() === 'q') {
+        process.exit(0);
+    } 
 };
