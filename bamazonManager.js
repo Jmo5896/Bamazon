@@ -158,8 +158,8 @@ function addProduct() {
         
         var addName = answers.productName;
         var addDepartment = answers.departmentName;
-        var addPrice = Number(answers.price);
-        var addQuantity = parseInt(answers.addQuantity);     
+        var addPrice = parseFloat(answers.price);
+        var addQuantity = parseInt(answers.stockQuantity);     
         addToProducts(addName, addDepartment, addPrice, addQuantity);
     });
 };
