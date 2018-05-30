@@ -29,13 +29,19 @@ connection.connect(function(error) {
     displayProducts();
 });
 
+function displayLoop(results) {
+    for (var i = 0; i < results.length; i++) {
+        console.log(`Item ID: ${results[i].item_id}\nProduct Name: ${results[i].product_name}\nDepartment Name: ${results[i].department_name}\nPrice: ${results[i].price}\nQuantity: ${results[i].stock_quantity}\n=====================================\n`);
+    }
+};
+
 function displayProducts() {
     
     connection.query('SELECT * FROM products', function (error, results, fields) {
         if (error) throw error;
         
         //convert results to a table: table and console.table
-        console.log(results);
+        displayLoop(results);
 
         //prompt user to select an item
         promptProduct(results);
@@ -110,12 +116,24 @@ function updateQuantity(quantity, product) {
         if (error) throw error;
         if (quantity > 1) {
             console.log(`You purchased ${quantity} ${product.product_name}s, their are ${newQuantity} left.`);
+            updateSales(quantity, product);
             displayProducts();
         } else {
             console.log(`You purchased ${quantity} ${product.product_name}, their are ${newQuantity} left.`);
+            updateSales(quantity, product);
             displayProducts();
         }
         
+    });
+};
+
+// Modify the products table so that there's a product_sales column and modify the bamazonCustomer.js app so that this value is updated with each individual products total revenue from each sale.
+// Modify your bamazonCustomer.js app so that when a customer purchases anything from the store, the price of the product multiplied by the quantity purchased is added to the product's product_sales column.
+
+function updateSales(quantity, product) {
+    var sales = (quantity * product.price) + product.product_sales;
+    connection.query('UPDATE products SET product_sales = ? WHERE item_id = ?', [sales, product.item_id], function (error, results, fields) {
+        if (error) throw error;
     });
 };
 

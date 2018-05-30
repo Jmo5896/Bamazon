@@ -5,6 +5,7 @@ const VIEW_PRODUCTS = 'View Products for Sale';
 const LOW_INVENTORY = 'View Low Inventory';
 const ADD_INVENTORY = 'Add to Inventory';
 const ADD_PRODUCT = 'Add New Product';
+
 // List a set of menu options:
     // View Products for Sale
     // View Low Inventory
@@ -24,39 +25,44 @@ var connection = mysql.createConnection({
    
 connection.connect(function(error) {
     if (error) throw error;
-
     displayProducts();
 });
 
+function displayLoop(results) {
+    for (var i = 0; i < results.length; i++) {
+        console.log(`Item ID: ${results[i].item_id}\nProduct Name: ${results[i].product_name}\nDepartment Name: ${results[i].department_name}\nPrice: ${results[i].price}\nQuantity: ${results[i].stock_quantity}\n=====================================\n`);
+    }
+};
+
 function displayProducts() {
-    
     connection.query('SELECT * FROM products', function (error, results, fields) {
         if (error) throw error;
         
         //convert results to a table: table and console.table
-        console.log(results);
+        displayLoop(results);
 
         //prompt user to select an item
         promptCommand(results);
     });
-      
 };
 
 function displayLowInventory() {
-    
     connection.query('SELECT * FROM products WHERE stock_quantity < 5', function (error, results, fields) {
         if (error) throw error;
         
         //convert results to a table: table and console.table
-        console.log(results);
+        displayLoop(results);
+        
+    });
 
-        //prompt user to select an item
+    //prompt user to select an item
+    connection.query('SELECT * FROM products', function (error, results, fields) {
         promptCommand(results);
     });
-}
+};
 
 function promptProduct(inventory) {
-    console.log(inventory);
+    displayLoop(inventory);
     inquirer.prompt(
         {
             name: 'item_id',
@@ -79,7 +85,6 @@ function promptProduct(inventory) {
                 }
             });
             if (userProduct) {
-                //prompt user for quantity
                 promptQuantity(userProduct);
             } else {
                 console.log('No product exists with that id');
@@ -105,13 +110,15 @@ function promptQuantity(product) {
     ).then(function(answers) {
         quit(answers.userQuantity);
         var userQuantity = parseInt(answers.userQuantity);         
-        
         updateInventory(userQuantity, product);
     });
 };
 
 function updateInventory(quantity, product) {
     var newQuantity = product.stock_quantity + quantity;
+    
+    //testing
+    updateOverHead(product.price, product.department_name, quantity);
     connection.query('UPDATE products SET stock_quantity = ? WHERE item_id = ?', [newQuantity, product.item_id], function (error, results, fields) {
         if (error) throw error;
         console.log(`You added ${quantity} to ${results.product_name}`);
@@ -119,7 +126,7 @@ function updateInventory(quantity, product) {
     });
 };
 
-function addProduct() {
+function addProduct(array) {
     inquirer.prompt([
         {
             name: 'productName',
@@ -128,8 +135,9 @@ function addProduct() {
         },
         {
             name: 'departmentName',
+            type: 'list',
             message: 'what department will it be in?: ',
-            type: 'input'
+            choices: array
         },
         {
             name: 'price',
@@ -153,9 +161,7 @@ function addProduct() {
                 return false;
             }
         },
-
     ]).then(function(answers) {
-        
         var addName = answers.productName;
         var addDepartment = answers.departmentName;
         var addPrice = parseFloat(answers.price);
@@ -164,7 +170,27 @@ function addProduct() {
     });
 };
 
+function updateOverHead(price, department, quantity) {
+    var newOverHead = (price / 2) * quantity;
+    console.log(newOverHead);
+    
+    connection.query('SELECT * FROM departments WHERE department_name = ?', [department], function (error, results, fields) {
+        if (error) throw error;
+        newOverHead += parseFloat(results[0].over_head_costs);
+        console.log(newOverHead);
+    
+        connection.query('UPDATE departments SET over_head_costs = ? WHERE department_name = ?', [newOverHead, department], function (error, results, fields) {
+            if (error) throw error;
+            
+    
+        });
+    });
+    
+};
+
 function addToProducts(name, department, price, quantity) {
+    updateOverHead(price, department, quantity);
+
     connection.query('INSERT INTO products (product_name, department_name, price, stock_quantity) VALUES (?, ? ,? ,?)', [name, department, price, quantity], function (error, results, fields) {
         if (error) throw error;
         console.log(`You added ${quantity} to ${results.product_name}`);
@@ -183,27 +209,29 @@ function promptCommand(inventory) {
     ).then(function(answers) {
         switch (answers.command) {
             case VIEW_PRODUCTS:
-            displayProducts();
-            break;
-
+                displayProducts();
+                break;
             case LOW_INVENTORY:
-            displayLowInventory();
-            break;
-
+                displayLowInventory();
+                break;
             case ADD_INVENTORY:
-            promptProduct(inventory);
-            break;
-
+                promptProduct(inventory);
+                break;
             case ADD_PRODUCT:
-            addProduct();
-            break;
-
+                connection.query('SELECT * FROM departments', function (error, results, fields) {
+                    var departmentArr = [];
+                    for (var i = 0; i < results.length; i++) {
+                        departmentArr.push(results[i].department_name);
+                    }
+                    addProduct(departmentArr);
+                });
+                break;
             case 'quit':
-            process.exit(0);
-            break;
+                process.exit(0);
+                break;
         }
     });
-}
+};
 
 function quit(answers) {
     if (answers.toLowerCase() === 'q') {
