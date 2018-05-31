@@ -20,10 +20,10 @@ CREATE TABLE products (
      PRIMARY KEY (department_id)
  );
 
-INSERT INTO products (product_name, department_name, price, stock_quantity)
-VALUES ("toy", "toys", "100.00", "7"), 
-    ("computer", "electronics", "800.00", "10"),
-    ("ipod", "electronics", "199.99", "22");
+INSERT INTO products (product_name, department_name, price, stock_quantity, product_sales)
+VALUES ("nerf gun", "toys", 12.99, 0, 0), 
+    ("computer", "electronics", 859.99, 0, 0),
+    ("ipod", "electronics", 199.99, 0, 0);
 
 INSERT INTO departments (department_name, over_head_costs)
 VALUES ("toys", 0),

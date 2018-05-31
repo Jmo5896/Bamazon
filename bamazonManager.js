@@ -183,13 +183,11 @@ function addProduct(array) {
 
 function updateOverHead(price, department, quantity) {
     var newOverHead = (price / 2) * quantity;
-    console.log(newOverHead);
-    
+        
     connection.query('SELECT * FROM departments WHERE department_name = ?', [department], function (error, results, fields) {
         if (error) throw error;
         newOverHead += parseFloat(results[0].over_head_costs);
-        console.log(newOverHead);
-    
+            
         connection.query('UPDATE departments SET over_head_costs = ? WHERE department_name = ?', [newOverHead, department], function (error, results, fields) {
             if (error) throw error;
             
