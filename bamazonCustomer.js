@@ -1,6 +1,6 @@
-var inquirer = require('inquirer');
-var mysql = require ('mysql');
-
+var inquirer = require('inquirer'); //npm install inquirer
+var mysql = require('mysql'); //npm install mysql
+var cTable = require('console.table'); //npm install console.table
 // Then create a Node application called bamazonCustomer.js. Running this application will first display all of the items available for sale. Include the ids, names, and prices of products for sale.
 // The app should then prompt users with two messages.
 
@@ -29,10 +29,20 @@ connection.connect(function(error) {
     displayProducts();
 });
 
-function displayLoop(results) {
+function displayTable(results) {
+    var tableArr = [];
     for (var i = 0; i < results.length; i++) {
-        console.log(`Item ID: ${results[i].item_id}\nProduct Name: ${results[i].product_name}\nDepartment Name: ${results[i].department_name}\nPrice: ${results[i].price}\nQuantity: ${results[i].stock_quantity}\n=====================================\n`);
+        tableArr.push(
+            {
+                item_id: results[i].item_id,
+                product_name: results[i].product_name,
+                department_name: results[i].department_name,
+                price: results[i].price,
+                stock_quantity:results[i].stock_quantity
+              }
+        );    
     }
+    console.table(tableArr);
 };
 
 function displayProducts() {
@@ -41,7 +51,7 @@ function displayProducts() {
         if (error) throw error;
         
         //convert results to a table: table and console.table
-        displayLoop(results);
+        displayTable(results);
 
         //prompt user to select an item
         promptProduct(results);
