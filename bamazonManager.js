@@ -213,7 +213,7 @@ function promptCommand(inventory) {
             name: 'command',
             message: 'What would you like to do?',
             type: 'list',
-            choices: [VIEW_PRODUCTS, LOW_INVENTORY, ADD_INVENTORY, ADD_PRODUCT, 'quit']
+            choices: [LOW_INVENTORY, ADD_INVENTORY, ADD_PRODUCT, 'quit']
         }
     ).then(function(answers) {
         switch (answers.command) {

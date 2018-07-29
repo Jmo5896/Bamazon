@@ -21,21 +21,19 @@ These instructions will get you a copy of the project up and running on your loc
         (Don't forget to hit run!!!)
         4. Now you are all set up to run any of the 3 options
 
+# How It Works Walkthrough:
+    After set up you have 3 files you get to choose from to start up with node: bamazonCustomer.js, bamazonManager.js, and bamazonSupervisor.js.
 
+    *bamazonCustomer.js:
+        1. In your bash enter "node bamazonCustomer.js"
+        ![](./gifs/customer-startUp.gif)
+        2. select any item by it's item_id number, or hit q to quit
+            *You will then be asked, "how many units do you want?" enter a number.
+            *The app will tell you how many units you purchased and will go back to the start-up table
+            *It will continue to do this until you quit.
+        ![](./gifs/customer-demo.gif)
+    *bamazonManager.js
 
-Running the tests
-Explain how to run the automated tests for this system
-
-Break down into end to end tests
-Explain what these tests test and why
-
-Give an example
-And coding style tests
-Explain what these tests test and why
-
-Give an example
-Deployment
-Add additional notes about how to deploy this on a live system
 
 Built With
 Dropwizard - The web framework used
