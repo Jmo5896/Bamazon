@@ -5,8 +5,6 @@ var cTable = require('console.table'); //npm install console.table
 const PRODUCT_SALES = 'View Product Sales by Department';
 const NEW_DEPARTMENT = 'Create New Department';
 
-
-
 var connection = mysql.createConnection({
     host     : 'localhost',
     user     : 'root',

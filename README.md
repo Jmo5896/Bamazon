@@ -25,34 +25,52 @@ These instructions will get you a copy of the project up and running on your loc
     After set up you have 3 files you get to choose from to start up with node: bamazonCustomer.js, bamazonManager.js, and bamazonSupervisor.js.
 
     *bamazonCustomer.js:
-        1. In your bash enter "node bamazonCustomer.js"
-        ![](./gifs/customer-startUp.gif)
-        2. select any item by it's item_id number, or hit q to quit
+        1. After booting up your mamp and your HeidiSQL make sure lines 7-8 in the bamazonManager.js file match your HeidiSQL credentials
+            ![](./gifs/customer-credentials.gif)
+        2. In your bash enter "node bamazonCustomer.js"
+            ![](./gifs/customer-startUp.gif)
+        3. select any item by it's item_id number, or hit q to quit
             *You will then be asked, "how many units do you want?" enter a number.
             *The app will tell you how many units you purchased and will go back to the start-up table
             *It will continue to do this until you quit.
-        ![](./gifs/customer-demo.gif)
+            ![](./gifs/customer-demo.gif)
+    
     *bamazonManager.js
-
+        1. After booting up your mamp and your HeidiSQL make sure lines 12-13 in the bamazonManager.js file match your HeidiSQL credentials
+            ![](./gifs/manager-credentials.gif)
+        2. In your bash enter "node bamazonManager.js"
+            ![](./gifs/manager-startUp.gif)
+        3. select any of four menu options: View low Inventory, Add to Inventory, Add New Product, or Quit.  
+            1. View low Inventory:
+                *if selected it will take you to a screen showing all products with a stock_inventory less than 5.
+                    ![](./gifs/manager-lowInventory.gif)
+            2. Add to Inventory
+                *If selected it will prompt you to enter the item_id of what you want to update, then it will ask you to enter the number of units you want to add
+                    ![](./gifs/manager-addInventory.gif)
+            3. Add New Product:
+                *If selected  it will prompt you to enter the name of the product, what department it will be in, how much it will cost, and how many units.
+                    ![](./gifs/manager-addProduct.gif)
+            4. Quit:
+                *allows you to exit the program, you can also hit control+c to quit at anytime.
+    
+    *bamazonSupervisor.js
+        1. After booting up your mamp and your HeidiSQL make sure lines 10-11 in the bamazonSupervisor.js file match your HeidiSQL credentials
+            ![](./gifs/supervisor-credentials.gif)
+        2. In your bash enter "node bamazonSupervisor.js"
+            ![](./gifs/supervisor-startUp.gif)
+        3. select any of three menu options: View Product Sales by Department, Create New Department, or Quit.  
+            1. View Product Sales by Department:
+                *if selected it will take you to a screen showing a table sorted by department_id with: department_name, over_head_costs, product_sales, and total_profit.
+                    ![](./gifs/supervisor-profit.gif)
+            2. Create New Department
+                *If selected it will prompt you to enter the item_id of what you want to update, then it will ask you to enter the number of units you want to add
+                    ![](./gifs/supervisor-addDepartment.gif)
+            3. Quit:
+                *allows you to exit the program, you can also hit control+c to quit at anytime.
 
 Built With
-Dropwizard - The web framework used
-Maven - Dependency Management
-ROME - Used to generate RSS Feeds
-Contributing
-Please read CONTRIBUTING.md for details on our code of conduct, and the process for submitting pull requests to us.
-
-Versioning
-We use SemVer for versioning. For the versions available, see the tags on this repository.
+    *Javascript
+    *Node.js
 
 Authors
-Billie Thompson - Initial work - PurpleBooth
-See also the list of contributors who participated in this project.
-
-License
-This project is licensed under the MIT License - see the LICENSE.md file for details
-
-Acknowledgments
-Hat tip to anyone whose code was used
-Inspiration
-etc
+    *Justin Moore
