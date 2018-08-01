@@ -9,14 +9,16 @@ These instructions will get you a copy of the project up and running on your
  local machine.
 
     *Prerequisites:
-        You will need both MAMP (https://www.mamp.info/en/) and an app for
-        your mySQL databases,
-        I use HeidiSQL (https://www.heidisql.com/download.php)
+        You will need both MAMP and an app for
+        your mySQL databases, I use HeidiSQL.
+[MAMP](https://www.mamp.info/en/)
+[HeidiSQL](https://www.heidisql.com/download.php)
 
     *Getting Bamazon Running:
-        1. Clone this repository (https://github.com/Jmo5896/Bamazon) to
-         your local machine, for help check out
-         https://services.github.com/on-demand/github-cli/clone-repo-cli
+        1. Clone this repository to your local machine, for help check out the
+        link below.
+[https://services.github.com/on-demand/github-cli/clone-repo-cli](https://services.github.com/on-demand/github-cli/clone-repo-cli)
+
         2. When it finishes downloading run "npm i" this will install the
          following npm packages that you will need for the app to run:
             *console.table
