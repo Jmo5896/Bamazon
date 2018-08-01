@@ -82,10 +82,10 @@ These instructions will get you a copy of the project up and running on your
     *bamazonSupervisor.js
         1. After booting up your mamp and your HeidiSQL make sure lines 10-11 in the 
         bamazonSupervisor.js file match your HeidiSQL credentials
-            ![](./gifs/supervisor-credentials.gif)
+[Supervisor Credentials](./gifs/supervisor-credentials.gif)
 
         2. In your bash enter "node bamazonSupervisor.js"
-            ![](./gifs/supervisor-startUp.gif)
+[Supervisor Start-up](./gifs/supervisor-startUp.gif)
 
         3. select any of three menu options: View Product Sales by Department, Create 
         New Department, or Quit.  
@@ -93,13 +93,13 @@ These instructions will get you a copy of the project up and running on your
                 *if selected it will take you to a screen showing a table sorted by 
                 department_id with: department_name, over_head_costs, product_sales, 
                 and total_profit.
-                    ![](./gifs/supervisor-profit.gif)
+[Supervisor Profit](./gifs/supervisor-profit.gif)
 
             2. Create New Department
                 *If selected it will prompt you to enter the item_id of what you want 
                 to update, then it will ask you to enter the number of units you want 
                 to add.
-                    ![](./gifs/supervisor-addDepartment.gif)
+[Supervisor Add-Department](./gifs/supervisor-addDepartment.gif)
 
             3. Quit:
                 *allows you to exit the program, you can also hit control+c to quit
