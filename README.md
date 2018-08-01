@@ -26,7 +26,7 @@ These instructions will get you a copy of the project up and running on your loc
 
     *bamazonCustomer.js:
         1. After booting up your mamp and your HeidiSQL make sure lines 7-8 in the bamazonManager.js file match your HeidiSQL credentials
-            [Customer Credentials](./gifs/customer-credentials.gif)
+[Customer Credentials](./gifs/customer-credentials.gif)
         2. In your bash enter "node bamazonCustomer.js"
             ![](./gifs/customer-startUp.gif)
         3. select any item by it's item_id number, or hit q to quit
