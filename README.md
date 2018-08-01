@@ -11,8 +11,7 @@ These instructions will get you a copy of the project up and running on your
     *Prerequisites:
         You will need both MAMP and an app for
         your mySQL databases, I use HeidiSQL.
-[MAMP](https://www.mamp.info/en/)
-[HeidiSQL](https://www.heidisql.com/download.php)
+[MAMP](https://www.mamp.info/en/) && [HeidiSQL](https://www.heidisql.com/download.php)
 
     *Getting Bamazon Running:
         1. Clone this repository to your local machine, for help check out the
